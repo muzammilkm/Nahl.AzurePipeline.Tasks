@@ -1,14 +1,15 @@
-param (
-    [Parameter(Mandatory=$True)][string]$sourceFolder,
-    [Parameter(Mandatory=$True)][string]$reportServerUrl,
-    [Parameter(Mandatory=$True)][string]$reportServerAuthenticationMode,  
-    [string]$targetFolder,
-    [Parameter(Mandatory=$True)][string]$dataSourceName,
-    [Parameter(Mandatory=$True)][string]$dataSourceAuthenticationMode,
-    [Parameter(Mandatory=$True)][string]$dataSourceConnectString,
-    [string]$dataSourceUserName,
-    [string]$dataSourcePassword
-)
+[CmdletBinding()]
+param ()
+
+$sourceFolder = Get-VstsInput -Name "sourceFolder" -Require
+$reportServerUrl = Get-VstsInput -Name "reportServerUrl" -Require
+$reportServerAuthenticationMode = Get-VstsInput -Name "reportServerAuthenticationMode" -Require 
+$targetFolder = Get-VstsInput -Name "targetFolder"
+$dataSourceName = Get-VstsInput -Name "dataSourceName" -Require
+$dataSourceAuthenticationMode = Get-VstsInput -Name "dataSourceAuthenticationMode" -Require
+$dataSourceConnectString = Get-VstsInput -Name "dataSourceConnectString" -Require
+$dataSourceUserName = Get-VstsInput -Name "dataSourceUserName"
+$dataSourcePassword = Get-VstsInput -Name "dataSourcePassword"
 
 Write-Verbose "Runninf script SSRSReportsDeployment.ps1" -Verbose
 Write-Verbose "sourceFolder = $sourceFolder" -Verbose
