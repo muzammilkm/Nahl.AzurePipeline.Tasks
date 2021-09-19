@@ -23,15 +23,7 @@ steps:
 
 - task: PublishAzureDevOpsExtension@3
   inputs:
-    connectTo: 'TFS'
-    connectedServiceNameTFS: 'Azure DevOps-Local'
+    connectTo: 'VsTeam'
+    connectedServiceName: 'Marketplace'
     fileType: 'vsix'
     vsixFile: 'ssrs-reports-deployment.vsix'
-
-- task: InstallAzureDevOpsExtension@3
-  inputs:
-    connectTo: 'TFS'
-    connectedServiceNameTFS: 'Azure DevOps-Local'
-    method: 'vsix'
-    vsixFile: 'ssrs-reports-deployment.vsix'
-    accounts: 'https://dev.azure.com/muzammilkm'
