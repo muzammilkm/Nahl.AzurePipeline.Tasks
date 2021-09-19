@@ -10,14 +10,26 @@ $dataSourceAuthenticationMode = Get-VstsInput -Name "dataSourceAuthenticationMod
 $dataSourceConnectString = Get-VstsInput -Name "dataSourceConnectString" -Require
 $dataSourceUserName = Get-VstsInput -Name "dataSourceUserName"
 $dataSourcePassword = Get-VstsInput -Name "dataSourcePassword"
+$useVerbose = Get-VstsInput -Name "useVerbose"
 
-Write-Verbose "Runninf script SSRSReportsDeployment.ps1" -Verbose
-Write-Verbose "sourceFolder = $sourceFolder" -Verbose
-Write-Verbose "reportServerUrl = $reportServerUrl" -Verbose
-Write-Verbose "reportServerAuthenticationMode  = $reportServerAuthenticationMode" -Verbose
-Write-Verbose "targetFolder = $targetFolder" -Verbose
-Write-Verbose "dataSourceName = $dataSourceName" -Verbose
-Write-Verbose "dataSourceAuthenticationMode = $dataSourceAuthenticationMode" -Verbose
-Write-Verbose "dataSourceConnectString = $dataSourceConnectString" -Verbose
-Write-Verbose "dataSourceUserName = $dataSourceUserName" -Verbose
-Write-Verbose "dataSourcePassword = $dataSourcePassword" -Verbose
+function Write-IfVerbose {
+    [cmdletbinding()]
+    param(
+        [Parameter(Position = 1)]$text
+    )
+    if ($UseVerbose -and $UseVerbose -eq $true) {
+        Write-Host "$text";
+    }
+}
+
+
+Write-IfVerbose "Running script SSRSReportsDeployment.ps1"
+Write-IfVerbose "sourceFolder = $sourceFolder"
+Write-IfVerbose "reportServerUrl = $reportServerUrl"
+Write-IfVerbose "reportServerAuthenticationMode  = $reportServerAuthenticationMode"
+Write-IfVerbose "targetFolder = $targetFolder"
+Write-IfVerbose "dataSourceName = $dataSourceName"
+Write-IfVerbose "dataSourceAuthenticationMode = $dataSourceAuthenticationMode"
+Write-IfVerbose "dataSourceConnectString = $dataSourceConnectString"
+Write-IfVerbose "dataSourceUserName = $dataSourceUserName"
+Write-IfVerbose "dataSourcePassword = $dataSourcePassword"
