@@ -14,8 +14,8 @@
   "demands": [],
   "version": {
     "Major": "0",
-    "Minor": "1",
-    "Patch": "0"
+    "Minor": "0",
+    "Patch": "3"
   },
   "minimumAgentVersion": "1.95.0",
   "instanceNameFormat": "SSRS Reports Deployment",
@@ -81,7 +81,7 @@
         "sqlServer": "Sql Server Authentication"
       },
       "required": true,
-      "helpMarkDown": "Provide data source name to be created and assigned to uploaded reports.",
+      "helpMarkDown": "Provide data source authentication mode.",
       "groupName": "dataSource"
     },
     {
@@ -90,7 +90,7 @@
       "label": "Data Source Connection String:",
       "defaultValue": "",
       "required": true,
-      "helpMarkDown": "Provide data source name to be created and assigned to uploaded reports.",
+      "helpMarkDown": "Provide connection string data source.",
       "groupName": "dataSource"
     },
     {
@@ -100,7 +100,7 @@
       "visibleRule": "dataSourceAuthenticationMode=sqlServer",
       "defaultValue": "",
       "required": true,
-      "helpMarkDown": "Provide data source name to be created and assigned to uploaded reports.",
+      "helpMarkDown": "Provide data source username.",
       "groupName": "dataSource"
     },
     {
@@ -110,7 +110,7 @@
       "visibleRule": "dataSourceAuthenticationMode=sqlServer",
       "defaultValue": "",
       "required": true,
-      "helpMarkDown": "Provide data source name to be created and assigned to uploaded reports.",
+      "helpMarkDown": "Provide data source password.",
       "groupName": "dataSource"
     }
   ],
