@@ -4,7 +4,7 @@ trigger:
     - main
   paths:
     include:
-    - src/*
+    - Tasks/*
 
 pool:
   vmImage: 'windows-latest'
