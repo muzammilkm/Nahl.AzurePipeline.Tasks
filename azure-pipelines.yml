@@ -20,7 +20,14 @@ steps:
     patternManifest: 'vss-ssrs-reports-deployment-extesnsion.json'
     outputPath: 'ssrs-reports-deployment.vsix'
     updateTasksVersion: false
-    
+
+- task: PublishAzureDevOpsExtension@3
+  inputs:
+    connectTo: 'TFS'
+    connectedServiceNameTFS: 'Azure DevOps-Local'
+    fileType: 'vsix'
+    vsixFile: 'ssrs-reports-deployment.vsix'
+
 - task: InstallAzureDevOpsExtension@3
   inputs:
     connectTo: 'TFS'
