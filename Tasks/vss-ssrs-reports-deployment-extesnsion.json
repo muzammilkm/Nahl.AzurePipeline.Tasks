@@ -1,6 +1,6 @@
 {
     "manifestVersion": 1,
-    "version": "0.0.5",
+    "version": "0.0.6",
     "id": "SSRSReportsDeployment-Task",
     "name": "SSRS Reports Deployment",
     "publisher": "muzammilkm",
