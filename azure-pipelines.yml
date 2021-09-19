@@ -37,4 +37,3 @@ steps:
     connectedServiceName: 'Marketplace'
     fileType: 'vsix'
     vsixFile: 'ssrs-reports-deployment.vsix'
-    extensionVersion: '$(Task.Extension.Version)'
