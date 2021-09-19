@@ -16,7 +16,7 @@ steps:
     
 - task: PackageAzureDevOpsExtension@3
   inputs:
-    rootFolder: '/Tasks'
+    rootFolder: 'Tasks'
     patternManifest: 'vss-ssrs-reports-deployment-extesnsion.json'
     outputPath: 'ssrs-reports-deployment.vsix'
     updateTasksVersion: false
