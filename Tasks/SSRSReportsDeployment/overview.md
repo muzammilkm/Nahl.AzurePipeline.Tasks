@@ -1,7 +1,7 @@
 # SSRS Reports Deployment
 Deploy/Publish your reports & data source (rdl & rds) files.
 
-**Advantage**
+**Supports**
 - Upload reports along with folder structure.
 - Create data source on the fly and assign to reports.
 - Environment specific folders.
