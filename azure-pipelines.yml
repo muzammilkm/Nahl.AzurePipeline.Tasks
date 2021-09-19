@@ -14,20 +14,11 @@ steps:
   inputs:
     version: 'v0.9.x'
 
-- task: QueryAzureDevOpsExtensionVersion@3
-  inputs:
-    connectTo: 'VsTeam'
-    connectedServiceName: 'Marketplace'
-    publisherId: 'muzammilkm'
-    extensionId: 'SSRSReportsDeployment-Task'
-    versionAction: 'Patch'
-    
 - task: PackageAzureDevOpsExtension@3
   inputs:
     rootFolder: 'Tasks'
     patternManifest: 'vss-ssrs-reports-deployment-extesnsion.json'
     outputPath: 'ssrs-reports-deployment.vsix'
-    extensionVersion: '$(Extension.VersionOverride)'
 
 - task: PublishAzureDevOpsExtension@3
   inputs:
