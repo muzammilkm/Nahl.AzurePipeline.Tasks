@@ -1,6 +1,6 @@
 {
     "manifestVersion": 1,
-    "version": "0.0.11",
+    "version": "0.0.12",
     "id": "SSRSReportsDeployment-Task",
     "name": "SSRS Reports Deployment",
     "publisher": "muzammilkm",
@@ -28,7 +28,7 @@
         "Azure Pipelines"
     ],
     "icons": {
-        "default": "SSRSReportsDeployment/icon.png"
+        "default": "ssrs-reports-deployment-icon.png"
     },
     "files": [
         {

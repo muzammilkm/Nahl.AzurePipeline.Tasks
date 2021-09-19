@@ -20,6 +20,7 @@ function CreateClient {
     begin { }
     process {        
         try {
+            $reportServerUrl = "$reportServerUrl/ReportService2010.asmx"
             Write-IfVerbose "Connecting to $reportServerUrl using $reportServerDomain\$reportServerUserName..." -useVerbose $useVerbose
             $rsClient = New-WebServiceProxy -Uri $reportServerUrl -Namespace SSRS.ReportingService2010 -UseDefaultCredential -Class "SSRS"
             if (!$rsClient) {
