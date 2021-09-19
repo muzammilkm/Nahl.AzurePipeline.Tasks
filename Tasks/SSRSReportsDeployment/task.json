@@ -3,7 +3,7 @@
   "name": "SSRSReportsDeployment",
   "friendlyName": "SSRS Reports Deployment",
   "description": "Deploy Reports to Sql Server Report Server",
-  "author": "Muzammil Khaja Mohammed",  
+  "author": "Muzammil Khaja Mohammed",
   "helpUrl": "https://github.com/muzammilkm/Nahl.AzurePipeline.Tasks",
   "helpMarkDown": "[Learn more about this task](https://github.com/muzammilkm/Nahl.AzurePipeline.Tasks)",
   "category": "Deploy",
@@ -19,27 +19,102 @@
   },
   "minimumAgentVersion": "1.95.0",
   "instanceNameFormat": "SSRS Reports Deployment",
+  "groups": [
+    {
+      "name": "dataSource",
+      "displayName": "Data Source",
+      "isExpanded": true
+    }
+  ],
   "inputs": [
     {
-      "name": "cwd",
+      "name": "sourceFolder",
       "type": "filePath",
-      "label": "Working Directory",
+      "label": "Reports Folder Path:",
       "defaultValue": "",
-      "required": false,
-      "helpMarkDown": "Current working directory when a is run."
+      "required": true,
+      "helpMarkDown": "Provide folder path containing rdl & rds files."
     },
     {
-      "name": "msg",
+      "name": "reportServerUrl",
       "type": "string",
-      "label": "Message",
-      "defaultValue": "Hello World",
+      "label": "Report Server Url:",
+      "defaultValue": "",
       "required": true,
-      "helpMarkDown": "Message to echo out"
+      "helpMarkDown": "Provide SSRS Server url excluding ReportService2010.asmx"
+    },
+    {
+      "name": "reportServerAuthenticationMode",
+      "type": "pickList",
+      "label": "Report Server Authenticate Mode:",
+      "defaultValue": "default",
+      "required": true,
+      "options": {
+        "default": "Default"
+      },
+      "helpMarkDown": "Used to Connect SSRS Server to perform operations."
+    },
+    {
+      "name": "targetFolder",
+      "type": "string",
+      "label": "Target Folder:",
+      "defaultValue": "",
+      "required": false,
+      "helpMarkDown": "Provide folder name in which files to be uploaded."
+    },
+    {
+      "name": "dataSourceName",
+      "type": "string",
+      "label": "Data Source Name:",
+      "defaultValue": "",
+      "required": true,
+      "helpMarkDown": "Provide data source name to be created and assigned to uploaded reports.",
+      "groupName": "dataSource"
+    },
+    {
+      "name": "dataSourceAuthenticationMode",
+      "type": "pickList",
+      "label": "Authentication Mode:",
+      "defaultValue": "",
+      "options": {
+        "windows": "Windows Authentication",
+        "sqlServer": "Sql Server Authentication"
+      },
+      "required": true,
+      "helpMarkDown": "Provide data source name to be created and assigned to uploaded reports.",
+      "groupName": "dataSource"
+    },
+    {
+      "name": "dataSourceConnectString",
+      "type": "multiLine",
+      "label": "Connection String:",
+      "defaultValue": "",
+      "required": true,
+      "helpMarkDown": "Provide data source name to be created and assigned to uploaded reports.",
+      "groupName": "dataSource"
+    },
+    {
+      "name": "dataSourceUserName",
+      "type": "multiLine",
+      "label": "Username:",
+      "defaultValue": "",
+      "required": true,
+      "helpMarkDown": "Provide data source name to be created and assigned to uploaded reports.",
+      "groupName": "dataSource"
+    },
+    {
+      "name": "dataSourcePassword",
+      "type": "multiLine",
+      "label": "Password:",
+      "defaultValue": "",
+      "required": true,
+      "helpMarkDown": "Provide data source name to be created and assigned to uploaded reports.",
+      "groupName": "dataSource"
     }
   ],
   "execution": {
     "PowerShell3": {
-      "target": "$(currentDirectory)\\DeployToSqlServer.ps1",
+      "target": "$(currentDirectory)\\SSRSReportsDeployment.ps1",
       "argumentFormat": "",
       "workingDirectory": "$(currentDirectory)"
     }
