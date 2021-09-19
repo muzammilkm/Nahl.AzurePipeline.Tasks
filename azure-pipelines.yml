@@ -27,7 +27,7 @@ steps:
     rootFolder: 'Tasks'
     patternManifest: 'vss-ssrs-reports-deployment-extesnsion.json'
     outputPath: 'ssrs-reports-deployment.vsix'
-    extensionVersion: '$(Task.Extension.Version)'
+    extensionVersion: '$(Extension.VersionOverride)'
     updateTasksVersion: true
     updateTasksVersionType: 'patch'
 
