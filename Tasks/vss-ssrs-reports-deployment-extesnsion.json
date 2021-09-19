@@ -28,7 +28,7 @@
         "Azure Pipelines"
     ],
     "icons": {
-        "default": "icon.png"
+        "default": "SSRSReportsDeployment/icon.png"
     },
     "files": [
         {
@@ -37,7 +37,7 @@
     ],
     "content": {
         "details": {
-            "path": "ssrs-reports-deployment-overview.md"
+            "path": "SSRSReportsDeployment/overview.md"
         }
     },
     "contributions": [
