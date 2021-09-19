@@ -21,8 +21,10 @@ steps:
     outputPath: 'ssrs-reports-deployment.vsix'
     updateTasksVersion: false
     
-- task: PublishBuildArtifacts@1
+- task: InstallAzureDevOpsExtension@3
   inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-    ArtifactName: 'drop'
-    publishLocation: 'Container'
+    connectTo: 'TFS'
+    connectedServiceNameTFS: 'Azure DevOps-Local'
+    method: 'vsix'
+    vsixFile: 'ssrs-reports-deployment.vsix'
+    accounts: 'https://dev.azure.com/muzammilkm'
