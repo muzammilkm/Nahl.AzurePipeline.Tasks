@@ -28,8 +28,6 @@ steps:
     patternManifest: 'vss-ssrs-reports-deployment-extesnsion.json'
     outputPath: 'ssrs-reports-deployment.vsix'
     extensionVersion: '$(Extension.VersionOverride)'
-    updateTasksVersion: true
-    updateTasksVersionType: 'patch'
 
 - task: PublishAzureDevOpsExtension@3
   inputs:
