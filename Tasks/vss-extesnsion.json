@@ -1,0 +1,55 @@
+{
+    "manifestVersion": 1,
+    "id": "SSRSReportsDeployment-Task",
+    "name": "SSRS Reports Deployment",
+    "version": "1.0.0",
+    "publisher": "muzammilkm",
+    "targets": [
+        {
+            "id": "Microsoft.VisualStudio.Services"
+        }
+    ],
+    "links": {
+        "home": {
+            "uri": "https://github.com/muzammilkm/Nahl.AzurePipeline.Tasks"
+        },
+        "support": {
+            "uri": "https://github.com/muzammilkm/Nahl.AzurePipeline.Tasks/issues"
+        },
+        "repository": {
+            "uri": "https://github.com/muzammilkm/Nahl.AzurePipeline.Tasks"
+        },
+        "issues": {
+            "uri": "https://github.com/muzammilkm/Nahl.AzurePipeline.Tasks/issues"
+        }
+    },
+    "description": "Task for SSRS Deployment",
+    "categories": [
+        "Azure Pipelines"
+    ],
+    "icons": {
+        "default": "icon.png"
+    },
+    "files": [
+        {
+            "path": "SSRSReportsDeployment"
+        }
+    ],
+    "content": {
+        "details": {
+            "path": "overview.md"
+        }
+    },
+    "contributions": [
+        {
+            "id": "SSRS-Reports-Deployment",
+            "type": "ms.vss-distributed-task.task",
+            "targets": [
+                "ms.vss-distributed-task.tasks"
+            ],
+            "properties": {
+                "name": "SSRSReportsDeployment"
+            }
+        }
+    ]
+}

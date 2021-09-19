@@ -1,0 +1,47 @@
+{
+  "id": "53ec2990-18eb-11ec-b0d8-c9ac45f6d352",
+  "name": "SSRSReportsDeployment",
+  "friendlyName": "SSRS Reports Deployment",
+  "description": "Deploy Reports to Sql Server Report Server",
+  "author": "Muzammil Khaja Mohammed",  
+  "helpUrl": "https://github.com/muzammilkm/Nahl.AzurePipeline.Tasks",
+  "helpMarkDown": "[Learn more about this task](https://github.com/muzammilkm/Nahl.AzurePipeline.Tasks)",
+  "category": "Deploy",
+  "visibility": [
+    "Build",
+    "Release"
+  ],
+  "demands": [],
+  "version": {
+    "Major": "0",
+    "Minor": "1",
+    "Patch": "0"
+  },
+  "minimumAgentVersion": "1.95.0",
+  "instanceNameFormat": "SSRS Reports Deployment",
+  "inputs": [
+    {
+      "name": "cwd",
+      "type": "filePath",
+      "label": "Working Directory",
+      "defaultValue": "",
+      "required": false,
+      "helpMarkDown": "Current working directory when a is run."
+    },
+    {
+      "name": "msg",
+      "type": "string",
+      "label": "Message",
+      "defaultValue": "Hello World",
+      "required": true,
+      "helpMarkDown": "Message to echo out"
+    }
+  ],
+  "execution": {
+    "PowerShell3": {
+      "target": "$(currentDirectory)\\DeployToSqlServer.ps1",
+      "argumentFormat": "",
+      "workingDirectory": "$(currentDirectory)"
+    }
+  }
+}
