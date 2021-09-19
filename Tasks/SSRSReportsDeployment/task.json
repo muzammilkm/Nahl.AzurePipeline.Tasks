@@ -74,8 +74,8 @@
     {
       "name": "dataSourceAuthenticationMode",
       "type": "pickList",
-      "label": "Authentication Mode:",
-      "defaultValue": "",
+      "label": "Data Source Authentication Mode:",
+      "defaultValue": "sqlServer",
       "options": {
         "windows": "Windows Authentication",
         "sqlServer": "Sql Server Authentication"
@@ -87,7 +87,7 @@
     {
       "name": "dataSourceConnectString",
       "type": "multiLine",
-      "label": "Connection String:",
+      "label": "Data Source Connection String:",
       "defaultValue": "",
       "required": true,
       "helpMarkDown": "Provide data source name to be created and assigned to uploaded reports.",
@@ -95,8 +95,9 @@
     },
     {
       "name": "dataSourceUserName",
-      "type": "multiLine",
-      "label": "Username:",
+      "type": "string",
+      "label": "Data Source Username:",
+      "visibleRule": "dataSourceAuthenticationMode=sqlServer",
       "defaultValue": "",
       "required": true,
       "helpMarkDown": "Provide data source name to be created and assigned to uploaded reports.",
@@ -104,8 +105,9 @@
     },
     {
       "name": "dataSourcePassword",
-      "type": "multiLine",
-      "label": "Password:",
+      "type": "string",
+      "label": "Data Source Password:",
+      "visibleRule": "dataSourceAuthenticationMode=sqlServer",
       "defaultValue": "",
       "required": true,
       "helpMarkDown": "Provide data source name to be created and assigned to uploaded reports.",
