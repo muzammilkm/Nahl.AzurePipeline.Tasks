@@ -27,7 +27,9 @@ steps:
     rootFolder: 'Tasks'
     patternManifest: 'vss-ssrs-reports-deployment-extesnsion.json'
     outputPath: 'ssrs-reports-deployment.vsix'
-    updateTasksVersion: false
+    extensionVersion: '$(Task.Extension.Version)'
+    updateTasksVersion: true
+    updateTasksVersionType: 'patch'
 
 - task: PublishAzureDevOpsExtension@3
   inputs:
@@ -35,3 +37,4 @@ steps:
     connectedServiceName: 'Marketplace'
     fileType: 'vsix'
     vsixFile: 'ssrs-reports-deployment.vsix'
+    extensionVersion: '$(Task.Extension.Version)'
