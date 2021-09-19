@@ -1,4 +1,3 @@
-[CmdletBinding()]
 param (
     [Parameter(Mandatory=$True)][string]$sourceFolder,
     [Parameter(Mandatory=$True)][string]$reportServerUrl,
