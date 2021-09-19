@@ -15,7 +15,7 @@
   "version":  {
     "Major": "0",
     "Minor": "0",
-    "Patch": "10"
+    "Patch": "11"
   },
   "minimumAgentVersion": "1.95.0",
   "instanceNameFormat": "SSRS Reports Deployment",
@@ -117,6 +117,15 @@
       "required": true,
       "helpMarkDown": "Provide data source password.",
       "groupName": "dataSource"
+    },
+    {
+      "name": "useTLS12",
+      "type": "boolean",
+      "label": "Use TLS 1.2",
+      "required": false,
+      "defaultValue": true,
+      "groupName": "advanced",
+      "helpMarkDown": "Enable TLS 1.2 while connecting SSRS."
     },
     {
       "name": "useVerbose",
