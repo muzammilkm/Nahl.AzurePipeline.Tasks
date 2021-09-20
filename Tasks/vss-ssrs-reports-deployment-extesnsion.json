@@ -1,45 +1,57 @@
 {
     "manifestVersion": 1,
-    "version": "0.0.13",
     "id": "SSRSReportsDeployment-Task",
-    "name": "SSRS Reports Deployment",
     "publisher": "muzammilkm",
+    "name": "SSRS Reports Deployment",
+    "version": "0.0.14",
+    "description": "Azure Pipeline task for Deployment of reports (rdl) and data source (rds) in to SSRS",
+    "tags": [
+        "SSRS",
+        "Report",
+        "Data Source",
+        "rdl",
+        "rds",
+        "Deploy",
+        "Publish"
+    ],
+    "icons": {
+        "default": "ssrs-reports-deployment-icon.png"
+    },
+    "public": false,
     "targets": [
         {
             "id": "Microsoft.VisualStudio.Services"
         }
     ],
+    "scopes": [],
+    "categories": [
+        "Azure Pipelines"
+    ],
+    "content": {
+        "details": {
+            "path": "ssrs-reports-deployment-overview.md"
+        }
+    },
     "links": {
-        "home": {
+        "repository": {
             "uri": "https://github.com/muzammilkm/Nahl.AzurePipeline.Tasks"
         },
         "support": {
             "uri": "https://github.com/muzammilkm/Nahl.AzurePipeline.Tasks/issues"
         },
-        "repository": {
-            "uri": "https://github.com/muzammilkm/Nahl.AzurePipeline.Tasks"
-        },
         "issues": {
             "uri": "https://github.com/muzammilkm/Nahl.AzurePipeline.Tasks/issues"
         }
     },
-    "description": "Task for SSRS Deployment",
-    "categories": [
-        "Azure Pipelines"
-    ],
-    "icons": {
-        "default": "ssrs-reports-deployment-icon.png"
+    "repository": {
+        "type": "git",
+        "uri": "https://github.com/muzammilkm/Nahl.AzurePipeline.Tasks"
     },
     "files": [
         {
             "path": "SSRSReportsDeployment"
         }
     ],
-    "content": {
-        "details": {
-            "path": "SSRSReportsDeployment/overview.md"
-        }
-    },
     "contributions": [
         {
             "id": "SSRS-Reports-Deployment",
