@@ -6,8 +6,9 @@ A collection of Azure Devops Pipeline Task Extenstions.
 An Azure Devops Pipeline Task Extenstion for Deploy/Publish reports & data sources (rdl & rds) files in to SSRS (Sql Server Reporting Service).
 
 **Supports**
-- Upload reports along with folder structure.
-- Create data source on the fly and assign to reports.
+- Uploading reports along with folder structure.
+- Create and Configure data source by passing tfs variables.
+- Modify the data source of reports as they deploy.
 - Environment specific folders.
 - TLS Support.
 

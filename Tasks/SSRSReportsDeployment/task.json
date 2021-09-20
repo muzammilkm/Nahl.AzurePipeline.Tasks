@@ -15,7 +15,7 @@
   "version":  {
     "Major": "0",
     "Minor": "0",
-    "Patch": "14"
+    "Patch": "15"
   },
   "minimumAgentVersion": "1.95.0",
   "instanceNameFormat": "SSRS Reports Deployment",
@@ -46,7 +46,7 @@
       "label": "Report Server Url:",
       "defaultValue": "",
       "required": true,
-      "helpMarkDown": "Provide SSRS Server url excluding ReportService2010.asmx"
+      "helpMarkDown": "Provide SSRS Server url excluding /ReportService2010.asmx"
     },
     {
       "name": "reportServerAuthenticationMode",
