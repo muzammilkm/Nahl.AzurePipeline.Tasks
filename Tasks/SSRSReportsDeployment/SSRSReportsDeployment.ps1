@@ -29,7 +29,6 @@ if ($reportServerAuthenticationMode = "default") {
     $reportServerUserName = $env:UserName
 }
 
-Write-IfVerbose "Running script SSRSReportsDeployment.ps1" -useVerbose $useVerbose
 Write-IfVerbose "sourceFolder = $sourceFolder" -useVerbose $useVerbose
 Write-IfVerbose "reportServerUrl = $reportServerUrl" -useVerbose $useVerbose
 Write-IfVerbose "reportServerAuthenticationMode  = $reportServerAuthenticationMode" -useVerbose $useVerbose
@@ -42,51 +41,24 @@ if([System.String]::IsNullOrWhiteSpace($dataSourcePassword) -eq $false){
     Write-IfVerbose "dataSourcePassword = ********" -useVerbose $useVerbose
 }
 
-$rsClient = CreateClient -reportServerUrl $reportServerUrl 
-                -reportServerAuthenticationMode $reportServerAuthenticationMode 
-                -reportServerDomain $reportServerDomain
-                -reportServerUserName $reportServerUserName
-                -useVerbose $useVerbose
+$rsClient = CreateClient -reportServerUrl $reportServerUrl -reportServerAuthenticationMode $reportServerAuthenticationMode -reportServerDomain $reportServerDomain -reportServerUserName $reportServerUserName -useVerbose $useVerbose
 
-CreateFolder -rsClient $rsClient 
-    -reportFolderPath $sourceFolder 
-    -reportFolder $targetFolder 
-    -reportPath "/" -force 
-    -forceCreate $true
-    -useVerbose $useVerbose
-
-$reportDataSource = CreateDataSource -rsClient $rsClient 
-                        -path /$targetFolder 
-                        -dataSourceName $dataSourceName 
-                        -connectString $dataSourceConnectString 
-                        -dataSourceAuthenticationMode $dataSourceAuthenticationMode
-                        -userName $dataSourceUserName 
-                        -password $dataSourcePassword
-                        -useVerbose $useVerbose
+Write-IfVerbose "Created: Report service client." -useVerbose $useVerbose
 
 Write-IfVerbose "Start creating folders..." -useVerbose $useVerbose
 
-CreateReportsInFolder -rsClient $rsClient 
-    -reportDataSource $reportDataSource 
-    -reportFolderPath $sourceFolder 
-    -reportFolder $targetFolder 
-    -reportPath "/"
-    -useVerbose $useVerbose
+CreateFolder -rsClient $rsClient -reportFolderPath $sourceFolder -reportFolder $targetFolder -reportPath "/" -forceCreate $true -useVerbose $useVerbose
+
+$reportDataSource = CreateDataSource -rsClient $rsClient -reportFolderPath /$targetFolder -dataSourceName $dataSourceName -connectString $dataSourceConnectString -authenticationMode $dataSourceAuthenticationMode -userName $dataSourceUserName -password $dataSourcePassword -useVerbose $useVerbose
+
+CreateReportsInFolder -rsClient $rsClient -reportDataSource $reportDataSource -reportFolderPath $sourceFolder -reportFolder $targetFolder -reportPath "/" -useVerbose $useVerbose
+
+foreach ($folder in Get-ChildItem $sourceFolder -Directory) {
+    CreateFolder -rsClient $rsClient -reportFolderPath $folder.FullName -reportFolder $folder.Name -reportPath /$targetFolder -forceCreate $false -useVerbose $useVerbose
+
+    CreateReportsInFolder -rsClient $rsClient -reportDataSource $reportDataSource -reportFolderPath $folder.FullName -reportFolder $folder.Name -reportPath /$targetFolder -useVerbose $useVerbose
+}
 
 Write-IfVerbose "Completed uploading reports from folders..." -useVerbose $useVerbose
 
-foreach ($folder in Get-ChildItem $sourceFolder -Directory) {
-    CreateFolder -rsClient $rsClient 
-        -reportFolderPath $folder.FullName 
-        -reportFolder $folder.Name 
-        -reportPath /$targetFolder 
-        -force $false
-        -useVerbose $useVerbose
-
-    CreateReportsInFolder -rsClient $rsClient 
-        -reportDataSource $reportDataSource
-        -reportFolderPath $folder.FullName 
-        -reportFolder $folder.Name 
-        -reportPath /$targetFolder
-        -useVerbose $useVerbose
-}
+Write-Host "Task Completed."
