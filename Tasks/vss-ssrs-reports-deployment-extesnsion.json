@@ -3,21 +3,29 @@
     "id": "SSRSReportsDeployment-Task",
     "publisher": "muzammilkm",
     "name": "SSRS Reports Deployment",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "description": "Azure Pipeline task for Deployment of reports (rdl) and data source (rds) into SSRS",
     "tags": [
         "SSRS",
+        "Sql",
+        "Server",
+        "Reporting",
+        "Service",
         "Report",
+        "Reports",
         "Data Source",
+        "DataSource",
         "rdl",
         "rds",
         "Deploy",
+        "Deployment",
         "Publish"
     ],
     "icons": {
         "default": "ssrs-reports-deployment-icon.png"
     },
     "public": true,
+    "baseUri": "https://localhost:44300",
     "targets": [
         {
             "id": "Microsoft.VisualStudio.Services"

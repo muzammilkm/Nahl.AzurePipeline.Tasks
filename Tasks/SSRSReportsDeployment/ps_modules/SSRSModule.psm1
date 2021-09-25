@@ -15,6 +15,7 @@ function CreateClient {
         [string]$reportServerAuthenticationMode,
         [string]$reportServerDomain,
         [string]$reportServerUserName,
+        [string]$reportServerPassword,
         [bool]$useVerbose
     )    
     begin { }
@@ -22,7 +23,25 @@ function CreateClient {
         try {
             $reportServerUrl = "$reportServerUrl/ReportService2010.asmx"
             Write-IfVerbose "Connecting to $reportServerUrl using $reportServerDomain\$reportServerUserName..." -useVerbose $useVerbose
-            $rsClient = New-WebServiceProxy -Uri $reportServerUrl -Namespace SSRS.ReportingService2010 -UseDefaultCredential -Class "SSRS"
+
+            $webServiceProxyArgs = @{
+                Uri                  = $reportServerUrl
+                Namespace            = SSRS.ReportingService2010 
+                UseDefaultCredential = $true
+                Class                = "SSRS"
+            };
+            if ($reportServerAuthenticationMode -eq "windows") {
+                [System.Net.ServicePointManager]::ServerCertificateValidationCallback = { $true }
+
+                $reportServerSecurePassword = ConvertTo-SecureString $reportServerPassword -AsPlainText -Force
+                $windowsCredential = New-Object System.Management.Automation.PSCredential ("$reportServerDomain\$reportServerUserName", $reportServerSecurePassword)
+
+                $webServiceProxyArgs.Remove("UseDefaultCredential")
+                $webServiceProxyArgs.Add("Credential", $windowsCredential)
+            }
+            
+            $rsClient = New-WebServiceProxy @webServiceProxyArgs
+
             if (!$rsClient) {
                 Write-Error "Error while connecting to reporting server at $reportServerUrl"
                 exit -1
