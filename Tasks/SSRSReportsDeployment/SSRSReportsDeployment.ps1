@@ -22,17 +22,15 @@ if ($useTLS12 -eq $true) {
     [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 }
 
-$reportServerDomain = ""
-if ($reportServerAuthenticationMode = "default") {
-    $reportServerDomain = $env:UserDomain
-    $reportServerAdminUserName = $env:UserName
+if ($reportServerAuthenticationMode -eq "default") {
+    $reportServerAdminUserName = "$env:UserDomain\$env:UserName"
 }
 
 Write-IfVerbose "sourceFolder = $sourceFolder" -useVerbose $useVerbose
 Write-IfVerbose "reportServerUrl = $reportServerUrl" -useVerbose $useVerbose
 Write-IfVerbose "reportServerAuthenticationMode = $reportServerAuthenticationMode" -useVerbose $useVerbose
 Write-IfVerbose "reportServerAdminUserName = $reportServerAdminUserName" -useVerbose $useVerbose
-if ([System.String]::IsNullOrWhiteSpace($reportServerAdminPassword) -eq $false) {
+if ($reportServerAuthenticationMode -eq "windows") {
     Write-IfVerbose "reportServerAdminPassword = ********" -useVerbose $useVerbose
 }
 Write-IfVerbose "targetFolder = $targetFolder" -useVerbose $useVerbose
@@ -47,7 +45,6 @@ if ([System.String]::IsNullOrWhiteSpace($dataSourcePassword) -eq $false) {
 $rsClientArgs = @{
     reportServerUrl                = $reportServerUrl
     reportServerAuthenticationMode = $reportServerAuthenticationMode
-    reportServerDomain             = $reportServerDomain
     reportServerUserName           = $reportServerAdminUserName
     reportServerPassword           = $reportServerAdminPassword
     useVerbose                     = $useVerbose

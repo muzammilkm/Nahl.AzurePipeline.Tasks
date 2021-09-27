@@ -13,7 +13,6 @@ function CreateClient {
     param (
         [string][parameter(Mandatory = $true)]$reportServerUrl,
         [string]$reportServerAuthenticationMode,
-        [string]$reportServerDomain,
         [string]$reportServerUserName,
         [string]$reportServerPassword,
         [bool]$useVerbose
@@ -22,7 +21,7 @@ function CreateClient {
     process {        
         try {
             $reportServerUrl = "$reportServerUrl/ReportService2010.asmx"
-            Write-IfVerbose "Connecting to $reportServerUrl using $reportServerDomain\$reportServerUserName..." -useVerbose $useVerbose
+            Write-IfVerbose "Connecting to $reportServerUrl using $reportServerUserName..." -useVerbose $useVerbose
 
             $webServiceProxyArgs = @{
                 Uri                  = $reportServerUrl
@@ -34,7 +33,7 @@ function CreateClient {
                 [System.Net.ServicePointManager]::ServerCertificateValidationCallback = { $true }
 
                 $reportServerSecurePassword = ConvertTo-SecureString $reportServerPassword -AsPlainText -Force
-                $windowsCredential = New-Object System.Management.Automation.PSCredential ("$reportServerDomain\$reportServerUserName", $reportServerSecurePassword)
+                $windowsCredential = New-Object System.Management.Automation.PSCredential ("$reportServerUserName", $reportServerSecurePassword)
 
                 $webServiceProxyArgs.Remove("UseDefaultCredential")
                 $webServiceProxyArgs.Add("Credential", $windowsCredential)
@@ -47,7 +46,7 @@ function CreateClient {
                 exit -1
             }
             $rsClient.Url = $reportServerUrl
-            Write-Host "Connected to $reportServerUrl using $reportServerDomain\$reportServerUserName"
+            Write-Host "Connected to $reportServerUrl using $reportServerUserName"
             return $rsClient;
         }
         catch [System.Exception] {
