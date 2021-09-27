@@ -69,7 +69,7 @@ CreateFolder @folderArgs
 
 $dataSourceArgs = @{
     rsClient           = $rsClient 
-    reportFolderPath   = /$targetFolder 
+    reportFolderPath   = "/$targetFolder" 
     dataSourceName     = $dataSourceName 
     connectString      = $dataSourceConnectString 
     authenticationMode = $dataSourceAuthenticationMode 
@@ -96,7 +96,7 @@ foreach ($folder in Get-ChildItem $sourceFolder -Directory) {
         rsClient         = $rsClient 
         reportFolderPath = $folder.FullName 
         reportFolder     = $folder.Name 
-        reportPath       = /$targetFolder 
+        reportPath       = "/$targetFolder" 
         forceCreate      = $false 
         useVerbose       = $useVerbose
     }
@@ -106,7 +106,7 @@ foreach ($folder in Get-ChildItem $sourceFolder -Directory) {
         reportDataSource = $reportDataSource 
         reportFolderPath = $folder.FullName 
         reportFolder     = $folder.Name 
-        reportPath       = /$targetFolder 
+        reportPath       = "/$targetFolder" 
         useVerbose       = $useVerbose
     }
 

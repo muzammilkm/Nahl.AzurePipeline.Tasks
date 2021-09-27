@@ -25,7 +25,7 @@ function CreateClient {
 
             $webServiceProxyArgs = @{
                 Uri                  = $reportServerUrl
-                Namespace            = SSRS.ReportingService2010 
+                Namespace            = "SSRS.ReportingService2010" 
                 UseDefaultCredential = $true
                 Class                = "SSRS"
             };
@@ -50,7 +50,7 @@ function CreateClient {
             return $rsClient;
         }
         catch [System.Exception] {
-            Write-Error "Error connecting report server $reportServerUrl. Msg: '{0}'" -f $_.Exception.Message
+            Write-Error "Error connecting report server $reportServerUrl. Msg: '$($_.Exception.Message)'"
             exit -1
         }
     }
@@ -81,7 +81,7 @@ function CreateFolder() {
                 Write-Host "$reportFolder folder already exists."
             }
             else {
-                Write-Error  "Error creating folder: $reportFolder. Msg: '{0}'" -f $_.Exception.Detail.InnerText
+                Write-Error  "Error creating folder: $reportFolder. Msg: '$($_.Exception.Message)'"
                 exit -1
             }
         }
@@ -124,7 +124,7 @@ function CreateDataSource() {
             return $reportDataSource
         }
         catch [System.IO.IOException] {
-            Write-Error "Error creating/updating datasource: $reportFolder. Msg: '{0}'" -f $_.Exception.Message
+            Write-Error "Error creating/updating datasource: $reportFolder. Msg: '$($_.Exception.Message)'"
             exit -1
         }
     }
@@ -164,7 +164,7 @@ function CreateReport() {
             }
         }
         catch [System.IO.IOException] {
-            Write-Error "Error creating/updating report: $reportFolder. Msg: '{0}'" -f $_.Exception.Message
+            Write-Error "Error creating/updating report: $reportFolder. Msg: '$($_.Exception.Message)'"
         }
     }
     end { }
