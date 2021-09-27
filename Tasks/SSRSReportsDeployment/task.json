@@ -12,9 +12,9 @@
     "Release"
   ],
   "demands": [],
-  "version":  {
+  "version": {
     "Major": "1",
-    "Minor": "0",
+    "Minor": "2",
     "Patch": "0"
   },
   "minimumAgentVersion": "1.95.0",
@@ -55,9 +55,28 @@
       "defaultValue": "default",
       "required": true,
       "options": {
-        "default": "Default"
+        "default": "Default",
+        "windows": "Windows Credentials"
       },
       "helpMarkDown": "Used to Connect SSRS Server to perform operations."
+    },
+    {
+      "name": "reportServerAdminUserName",
+      "type": "string",
+      "label": "Report Server Admin Login:",
+      "visibleRule": "reportServerAuthenticationMode=windows",
+      "defaultValue": "",
+      "required": true,
+      "helpMarkDown": "Provide Administrator login for Reporting Server to connect."
+    },
+    {
+      "name": "reportServerAdminPassword",
+      "type": "string",
+      "label": "Report Server Admin Password:",
+      "visibleRule": "reportServerAuthenticationMode=windows",
+      "defaultValue": "",
+      "required": true,
+      "helpMarkDown": "Provide password for administrator login for Reporting Server."
     },
     {
       "name": "targetFolder",
