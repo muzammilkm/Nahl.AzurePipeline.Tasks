@@ -56,7 +56,7 @@ function CreateFolder() {
             }
             Write-IfVerbose "Creating folder $reportFolder in $reportPath folder." -useVerbose $useVerbose
             $rsClient.CreateFolder($reportFolder, $reportPath, $null) | out-null
-            Write-Host "Created folder $reportFolder in $reportPath folder." -useVerbose $useVerbose
+            Write-Host "Created folder $reportFolder in $reportPath folder."
         }
         catch [System.Web.Services.Protocols.SoapException] {
             if ($_.Exception.Detail.InnerText -match "rsItemAlreadyExists400") {
@@ -138,7 +138,7 @@ function CreateReport() {
             }
             $rsClient.SetItemDataSources($report.Path, $reportDataSources)
 
-            Write-Host "Uploaded report $($report.Name) & Assigned data source $($reportDataSource.Name)."
+            Write-Host "Uploaded report $($report.Path)"
             for ($i = 0; $i -lt $warnings.Length; $i++) {
                 if ($warnings[$i].Code -notmatch "rsDataSourceReferenceNotPublished") {
                     Write-Warning "$($warnings[$i].Severity) : $($warnings[$i].Code) - $($warnings[$i].Message)"

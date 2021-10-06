@@ -59,6 +59,7 @@ foreach ($folder in Get-ChildItem $sourceFolder -Directory) {
     CreateReportsInFolder -rsClient $rsClient -reportDataSource $reportDataSource -reportFolderPath $folder.FullName -reportFolder $folder.Name -reportPath /$targetFolder -useVerbose $useVerbose
 }
 
-Write-IfVerbose "Completed uploading reports from folders..." -useVerbose $useVerbose
+Write-Host "Assigned all uploaded reports with data source $($reportDataSource.Name)"
 
+Write-IfVerbose "Completed uploading reports from folders..." -useVerbose $useVerbose
 Write-Host "Task Completed."

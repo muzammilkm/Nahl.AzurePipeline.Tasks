@@ -3,7 +3,7 @@
     "id": "SSRSReportsDeployment-Task",
     "publisher": "muzammilkm",
     "name": "SSRS Reports Deployment",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "Azure Pipeline task for Deployment of reports (rdl) and data source (rds) into SSRS",
     "tags": [
         "SSRS",
