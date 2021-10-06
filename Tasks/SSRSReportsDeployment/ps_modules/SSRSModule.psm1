@@ -13,26 +13,44 @@ function CreateClient {
     param (
         [string][parameter(Mandatory = $true)]$reportServerUrl,
         [string]$reportServerAuthenticationMode,
-        [string]$reportServerDomain,
         [string]$reportServerUserName,
+        [string]$reportServerPassword,
         [bool]$useVerbose
     )    
     begin { }
     process {        
         try {
             $reportServerUrl = "$reportServerUrl/ReportService2010.asmx"
-            Write-IfVerbose "Connecting to $reportServerUrl using $reportServerDomain\$reportServerUserName..." -useVerbose $useVerbose
-            $rsClient = New-WebServiceProxy -Uri $reportServerUrl -Namespace SSRS.ReportingService2010 -UseDefaultCredential -Class "SSRS"
+            Write-IfVerbose "Connecting to $reportServerUrl using $reportServerUserName..." -useVerbose $useVerbose
+
+            $webServiceProxyArgs = @{
+                Uri                  = $reportServerUrl
+                Namespace            = "SSRS.ReportingService2010" 
+                UseDefaultCredential = $true
+                Class                = "SSRS"
+            };
+            if ($reportServerAuthenticationMode -eq "windows") {
+                [System.Net.ServicePointManager]::ServerCertificateValidationCallback = { $true }
+
+                $reportServerSecurePassword = ConvertTo-SecureString $reportServerPassword -AsPlainText -Force
+                $windowsCredential = New-Object System.Management.Automation.PSCredential ("$reportServerUserName", $reportServerSecurePassword)
+
+                $webServiceProxyArgs.Remove("UseDefaultCredential")
+                $webServiceProxyArgs.Add("Credential", $windowsCredential)
+            }
+            
+            $rsClient = New-WebServiceProxy @webServiceProxyArgs
+
             if (!$rsClient) {
                 Write-Error "Error while connecting to reporting server at $reportServerUrl"
                 exit -1
             }
             $rsClient.Url = $reportServerUrl
-            Write-Host "Connected to $reportServerUrl using $reportServerDomain\$reportServerUserName"
+            Write-Host "Connected to $reportServerUrl using $reportServerUserName"
             return $rsClient;
         }
         catch [System.Exception] {
-            Write-Error "Error connecting report server $reportServerUrl. Msg: '{0}'" -f $_.Exception.Message
+            Write-Error "Error connecting report server $reportServerUrl. Msg: '$($_.Exception.Message)'"
             exit -1
         }
     }
@@ -63,7 +81,7 @@ function CreateFolder() {
                 Write-Host "$reportFolder folder already exists."
             }
             else {
-                Write-Error  "Error creating folder: $reportFolder. Msg: '{0}'" -f $_.Exception.Detail.InnerText
+                Write-Error  "Error creating folder: $reportFolder. Msg: '$($_.Exception.Message)'"
                 exit -1
             }
         }
@@ -106,7 +124,7 @@ function CreateDataSource() {
             return $reportDataSource
         }
         catch [System.IO.IOException] {
-            Write-Error "Error creating/updating datasource: $reportFolder. Msg: '{0}'" -f $_.Exception.Message
+            Write-Error "Error creating/updating datasource: $reportFolder. Msg: '$($_.Exception.Message)'"
             exit -1
         }
     }
@@ -146,7 +164,7 @@ function CreateReport() {
             }
         }
         catch [System.IO.IOException] {
-            Write-Error "Error creating/updating report: $reportFolder. Msg: '{0}'" -f $_.Exception.Message
+            Write-Error "Error creating/updating report: $reportFolder. Msg: '$($_.Exception.Message)'"
         }
     }
     end { }
