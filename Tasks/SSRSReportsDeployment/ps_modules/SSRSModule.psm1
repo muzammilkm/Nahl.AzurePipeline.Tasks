@@ -131,17 +131,48 @@ function CreateDataSource() {
     end { }
 }
 
+function DeleteReport() {
+    param (
+        [System.Web.Services.Protocols.SoapHttpClientProtocol][parameter(Mandatory = $true)]$rsClient,
+        [parameter(Mandatory = $true)]$reportPath,
+        [bool]$useVerbose
+    )
+    begin { }
+    process { 
+        try {
+            Write-IfVerbose "Deleting $reportPath report." -useVerbose $useVerbose
+            $rsClient.DeleteItem($reportPath)
+            Write-Host "Deleted $reportPath report"
+        }
+        catch [System.Web.Services.Protocols.SoapException] {
+            if ($_.Exception.Message.Contains("ItemNotFoundException")) {
+                Write-Warning "Not found $reportPath report."
+            }
+            else {
+                Write-Error "Error while deleting $reportPath report. Msg: '$($_.Exception.Message)'"
+            }
+        }
+    }
+    end { }
+}
+
 function CreateReport() {
     param (
         [System.Web.Services.Protocols.SoapHttpClientProtocol][parameter(Mandatory = $true)]$rsClient,
         [SSRS.ReportingService2010.CatalogItem[]][parameter(Mandatory = $true)]$reportDataSource,
         [parameter(Mandatory = $true)]$reportFile,
         [string][parameter(Mandatory = $true)]$reportFolder,
+        [bool]$cleanUpload,
         [bool]$useVerbose
     )
     begin { }
     process {
         try {
+
+            if ($cleanUpload -eq $true) {
+                DeleteReport -rsClient $rsClient -reportPath "$reportFolder/$($reportFile.BaseName)" -useVerbose $useVerbose
+            }
+
             Write-IfVerbose "Uploading report $reportFile to $reportFolder folder." -useVerbose $useVerbose
             $warnings = $null
             $bytes = Get-Content $reportFile.FullName -encoding byte
@@ -177,6 +208,7 @@ function CreateReportsInFolder () {
         [string][parameter(Mandatory = $true)]$reportFolderPath,
         [string][parameter(Mandatory = $true)]$reportFolder, 
         [string][parameter(Mandatory = $true)]$reportPath,
+        [bool]$cleanUpload,
         [bool]$useVerbose
     )
     begin { }
@@ -198,7 +230,7 @@ function CreateReportsInFolder () {
         }
         Write-IfVerbose "Creating reports from $reportCompletePath." -useVerbose $useVerbose
         foreach ($rdlfile in $rdlFiles) {
-            CreateReport -rsClient $rsClient -reportDataSource $reportDataSource -reportFile $rdlfile -reportFolder $reportCompletePath -useVerbose $useVerbose
+            CreateReport -rsClient $rsClient -reportDataSource $reportDataSource -reportFile $rdlfile -reportFolder $reportCompletePath -cleanUpload $cleanUpload -useVerbose $useVerbose
         }
         Write-IfVerbose "Created reports from $reportCompletePath." -useVerbose $useVerbose
     }    
