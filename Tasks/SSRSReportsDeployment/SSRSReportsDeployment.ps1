@@ -12,6 +12,7 @@ $dataSourceAuthenticationMode = Get-VstsInput -Name "dataSourceAuthenticationMod
 $dataSourceConnectString = Get-VstsInput -Name "dataSourceConnectString" -Require
 $dataSourceUserName = Get-VstsInput -Name "dataSourceUserName"
 $dataSourcePassword = Get-VstsInput -Name "dataSourcePassword"
+[bool]$cleanUpload = Get-VstsInput -Name "cleanUpload" -AsBool
 [bool]$useTLS12 = Get-VstsInput -Name "useTLS12" -AsBool
 [bool]$useVerbose = Get-VstsInput -Name "useVerbose" -AsBool
 
@@ -86,6 +87,7 @@ $folderReportArgs = @{
     reportFolderPath = $sourceFolder 
     reportFolder     = $targetFolder 
     reportPath       = "/" 
+    cleanUpload      = $cleanUpload
     useVerbose       = $useVerbose
 }
 
@@ -106,7 +108,8 @@ foreach ($folder in Get-ChildItem $sourceFolder -Directory) {
         reportDataSource = $reportDataSource 
         reportFolderPath = $folder.FullName 
         reportFolder     = $folder.Name 
-        reportPath       = "/$targetFolder" 
+        reportPath       = "/$targetFolder"
+        cleanUpload      = $cleanUpload 
         useVerbose       = $useVerbose
     }
 
